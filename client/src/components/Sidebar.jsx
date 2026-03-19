@@ -60,25 +60,29 @@ const Sidebar = () => {
   return (
     <div
       className={`h-screen ${
-        collapsed ? "w-20 " : "w-64"
-      } bg-[#0f172a] text-gray-300 px-3 py-6 flex flex-col transition-all duration-300`}
+        collapsed ? "w-20" : "w-64"
+      } bg-[#0b1220] border-r border-white/5 text-gray-400 px-3 py-6 flex flex-col transition-all duration-300`}
     >
       {/* Top Section */}
-      <div className="flex items-center justify-between mb-10">
+      <div
+        className={`flex items-center mb-10 ${
+          collapsed ? "justify-center" : "justify-between"
+        }`}
+      >
         {!collapsed && (
           <div
             onClick={() => navigate("/")}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <h1 className="text-white font-semibold text-lg">
-              Asset Management
+            <h1 className="text-white font-semibold text-base tracking-wide">
+              Asset
             </h1>
           </div>
         )}
 
-        {/* Toggle Button */}
         <Menu
-          className="cursor-pointer text-white"
+          size={20}
+          className="cursor-pointer text-gray-300 hover:text-white transition"
           onClick={() => setCollapsed(!collapsed)}
         />
       </div>
@@ -101,19 +105,23 @@ const Sidebar = () => {
                   }
                 }}
                 className={`flex items-center ${
-                  collapsed ? "justify-center" : "justify-between"
-                } px-3 py-2 rounded-lg cursor-pointer transition group
-                ${
-                  isActive(item.path)
-                    ? "bg-[#1e293b] text-white"
-                    : "hover:bg-[#1e293b]"
-                }`}
+                  collapsed ? "justify-center px-0" : "justify-between px-3"
+                } py-2.5 rounded-xl cursor-pointer transition-all duration-200 group relative
+${
+  isActive(item.path)
+    ? "bg-white/10 text-white shadow-sm"
+    : "hover:bg-white/5 hover:text-white"
+}`}
               >
-                <div className="flex items-center gap-3">
-                  <Icon size={18} />
-
-                  {/* Hide text when collapsed */}
-                  {!collapsed && <span className="text-sm">{item.name}</span>}
+                <div
+                  className={`flex items-center ${
+                    collapsed ? "justify-center w-full" : "gap-3"
+                  }`}
+                >
+                  <Icon size={collapsed ? 20 : 18} />
+                  {!collapsed && (
+                    <span className="text-sm font-medium">{item.name}</span>
+                  )}
                 </div>
 
                 {/* Dropdown Arrow */}
@@ -127,7 +135,7 @@ const Sidebar = () => {
 
                 {/* Tooltip (collapsed mode) */}
                 {collapsed && (
-                  <span className="absolute left-20 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100">
+                  <span className="absolute left-20 bg-black/90 backdrop-blur px-2 py-1 rounded text-xs text-white opacity-0 group-hover:opacity-100 whitespace-nowrap">
                     {item.name}
                   </span>
                 )}
@@ -143,12 +151,12 @@ const Sidebar = () => {
                       <div
                         key={i}
                         onClick={() => navigate(child.path)}
-                        className={`flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer text-sm transition
-                        ${
-                          isActive(child.path)
-                            ? "bg-[#1e293b] text-white"
-                            : "hover:bg-[#1e293b]"
-                        }`}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer text-sm transition
+${
+  isActive(child.path)
+    ? "bg-white/10 text-white"
+    : "hover:bg-white/5 hover:text-white"
+}`}
                       >
                         <ChildIcon size={16} />
                         <span>{child.name}</span>
