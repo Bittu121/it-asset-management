@@ -1,11 +1,11 @@
 import React from "react";
 
-function Pagination() {
+const Pagination = () => {
   return (
     <>
       <div></div>
     </>
   );
-}
+};
 
 export default Pagination;
